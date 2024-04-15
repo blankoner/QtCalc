@@ -51,8 +51,8 @@ void MainWindow::EnterNum()
         toClear = false;
     }
 
-    QPushButton *btn = qobject_cast<QPushButton*>(sender());
-    QString currentText = ui->Screen->text();
+    QPushButton *btn = qobject_cast<QPushButton*>(sender()); //Checking which button was pressed
+    QString currentText = ui->Screen->text(); //Appending pressed number to a screen-text
     currentText += btn->text();
     if(btn)
     {
@@ -67,9 +67,9 @@ void MainWindow::EnterSign()
 
     if(!(currentText.contains("+")) && !(currentText.contains("-")) && !(currentText.contains("*")) && !(currentText.contains("/")) && !(toClear) && !(currentText.isEmpty()))
     {
-        first = std::stod(currentText.toStdString().c_str());
+        first = std::stod(currentText.toStdString().c_str()); //Getting first number from a screen-text
 
-        QString enteredSign = btn->text();
+        QString enteredSign = btn->text(); //Reading and appending equation-sign to a screen-text
         sign = enteredSign.toStdString().c_str();
 
         currentText += enteredSign;
@@ -83,7 +83,7 @@ void MainWindow::EnterSign()
 void MainWindow::EnterDot()
 {
     QString currentText = ui->Screen->text();
-
+    //Handling number-dots on a screen
     if(currentText.contains("+") || currentText.contains("-") || currentText.contains("*") || currentText.contains("/"))
     {
         if(!(currentText.back() == '.') && !(currentText.count('.') > 1) && !(currentText.back() == '+') && !(currentText.back() == '-') && !(currentText.back() == '*') && !(currentText.back() == '/'))
@@ -179,16 +179,13 @@ void MainWindow::Equals()
     std::string equation = currentText.toStdString().c_str();
     std::string secondNumber;
 
-    size_t found = equation.find(sign);
-    if(sign == "\0")
-    {
-        found = -1;
-    }
+    size_t found = equation.find(sign); //Checking if equation-sign is on the screen
+    found = (sign == "\0" ? -1 : found);
 
     if((found != std::string::npos) && (equation.back() != sign[0]))
     {
         secondNumber = equation.substr(found+1);
-        second = std::stod(secondNumber);
+        second = std::stod(secondNumber); //Getting second number from a screen-text
         ClearScreen();
         Operation(sign);
         toClear = true;
