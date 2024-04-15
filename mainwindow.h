@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <cstring>
 #include <string.h>
+#include <cmath>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,13 +21,18 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    float first, second;
+    double first, second;
+    bool toClear;
     std::string sign;
 
-public slots:
+private slots:
     void EnterNum();
     void EnterSign();
+    void EnterDot();
+    void Square();
+    void SquareRoot();
     void Equals();
+    void Operation(std::string);
     void ClearScreen();
 };
 #endif // MAINWINDOW_H
